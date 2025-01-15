@@ -47,12 +47,11 @@ const Page = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col gap-5 text-black bg-white p-10 rounded-md"
-      style={{ maxWidth: "500px", margin: "0 auto" }}
+      className="flex flex-col h-full xl:h-auto gap-5 max-w-[500px] text-black bg-white p-10 justify-center xl:rounded-md"
     >
-      <h2 className=" font-medium">Transmonk Feedback Form</h2>
+      <h2 className=" font-medium">Transmonk Visitor Form</h2>
 
-      <label className=" flex justify-between">
+      <label className="flex justify-between">
         Name:
         <input
           placeholder="Name"
@@ -118,7 +117,7 @@ const Page = () => {
       </label>
 
       <label className=" flex justify-between">
-        Address (Optional):
+        Address:
         <input
           className=" border px-2 py-1  ml-3 rounded-sm"
           placeholder="Address"
@@ -129,88 +128,110 @@ const Page = () => {
         />
       </label>
 
-      <label className=" flex justify-between">
-        Location:
-        <select
-          name="location"
-          className=" border px-2 py-1  ml-3 rounded-sm cursor-pointer"
-          value={formData.location}
-          onChange={handleChange}
-          required
-        >
-          <option value="">Select Location</option>
-          {locations.map((location, index) => (
-            <option key={index} value={location}>
-              {location}
-            </option>
-          ))}
-        </select>
-      </label>
-
-      <label className=" flex justify-between">
-        User Type:
-        <select
-          className=" border px-2 py-1 ml-3 rounded-sm cursor-pointer"
-          name="userType"
-          value={formData.userType}
-          onChange={handleChange}
-          required
-        >
-          <option value="">Select User Type</option>
-          {userTypes.map((type, index) => (
-            <option key={index} value={type}>
-              {type}
-            </option>
-          ))}
-        </select>
-      </label>
-
-      {formData.userType === "Customer" || formData.userType === "Supplier" ? (
-        <>
-          <label className=" flex justify-between">
-            Controller:
-            <select
-              name="controller"
-              className=" border px-2 py-1  ml-3 rounded-sm cursor-pointer"
-              value={formData.controller}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select Controller</option>
-              {controllers.map((controller, index) => (
-                <option key={index} value={controller}>
-                  {controller}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          {formData.controller === "Fan" ? (
-            <>
-              <label className=" flex justify-between">
-                Fan Type:
-                <select
-                  className=" border px-2 py-1  ml-3 rounded-sm cursor-pointer"
-                  name="fanType"
-                  value={formData.fanType}
+      <div className=" flex flex-wrap justify-between gap-4">
+        <div className="flex items-start flex-col gap-2 ">
+          <label>Location:</label>
+          <div className="flex flex-col">
+            {locations.map((location, index) => (
+              <div key={index} className="flex items-center mr-4 mb-2">
+                <input
+                  type="checkbox"
+                  id={`location-${index}`}
+                  name="location"
+                  value={location}
+                  checked={formData.location.includes(location)}
                   onChange={handleChange}
-                  required
+                  className="cursor-pointer"
+                />
+                <label
+                  htmlFor={`location-${index}`}
+                  className="ml-2 cursor-pointer"
                 >
-                  <option value="">Select Fan Type</option>
-                  {fanTypes.map((fan, index) => (
-                    <option key={index} value={fan}>
-                      {fan}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            </>
-          ) : null}
-        </>
-      ) : null}
+                  {location}
+                </label>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex items-start flex-col gap-2">
+          <label className="mr-2">User Type:</label>
+          <div className="flex flex-col">
+            {userTypes.map((type, index) => (
+              <div key={index} className="flex items-center mr-4 mb-2">
+                <input
+                  type="checkbox"
+                  id={`userType-${index}`}
+                  name="userType"
+                  value={type}
+                  checked={formData.userType.includes(type)}
+                  onChange={handleChange}
+                  className="cursor-pointer"
+                />
+                <label
+                  htmlFor={`userType-${index}`}
+                  className="ml-2 cursor-pointer"
+                >
+                  {type}
+                </label>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex items-start flex-col gap-2">
+          <label className="mr-2">Controller:</label>
+          <div className="flex flex-col">
+            {controllers.map((controller, index) => (
+              <div key={index} className="flex items-center mr-4 mb-2">
+                <input
+                  type="checkbox"
+                  id={`controller-${index}`}
+                  name="controller"
+                  value={controller}
+                  checked={formData.controller.includes(controller)}
+                  onChange={handleChange}
+                  className="cursor-pointer"
+                />
+                <label
+                  htmlFor={`controller-${index}`}
+                  className="ml-2 cursor-pointer"
+                >
+                  {controller}
+                </label>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex items-start flex-col gap-2">
+          <label className="mr-2">Fan Type:</label>
+          <div className="flex flex-col">
+            {fanTypes.map((fan, index) => (
+              <div key={index} className="flex items-center mr-4 mb-2">
+                <input
+                  type="checkbox"
+                  id={`fanType-${index}`}
+                  name="fanType"
+                  value={fan}
+                  checked={formData.fanType.includes(fan)}
+                  onChange={handleChange}
+                  className="cursor-pointer"
+                />
+                <label
+                  htmlFor={`fanType-${index}`}
+                  className="ml-2 cursor-pointer"
+                >
+                  {fan}
+                </label>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
       <button
-        className=" bg-blue-700 text-white font-bold rounded-md py-3"
+        className=" bg-blue-700 text-white font-semibold rounded-md py-2"
         type="submit"
       >
         Submit
