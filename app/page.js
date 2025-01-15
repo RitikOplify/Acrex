@@ -30,6 +30,18 @@ const Page = () => {
     e.preventDefault();
     console.log("Form Data Submitted:", formData);
     toast.success("Form submitted successfully!");
+    setFormData({
+      name: "",
+      designation: "",
+      email: "",
+      mobile: "",
+      companyName: "",
+      address: "",
+      location: "",
+      fanType: "",
+      controller: "",
+      userType: "",
+    });
   };
 
   return (
